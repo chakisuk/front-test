@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DOCKERHUB_USERNAME = "chakisuk"
-        IMAGE_NAME = "farmdora-FE"
+        IMAGE_NAME = "test-front"
         DOCKER_IMAGE = "${DOCKERHUB_USERNAME}/${IMAGE_NAME}"
         DOCKER_TAG = "latest"
         DOCKERHUB_CREDENTIALS = credentials('dockerhub-jenkins')
