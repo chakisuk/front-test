@@ -6,7 +6,7 @@ pipeline {
         IMAGE_NAME = "farmdora-FE"
         DOCKER_IMAGE = "${DOCKERHUB_USERNAME}/${IMAGE_NAME}"
         DOCKER_TAG = "latest"
-        DOCKER_HUB_TOKEN = "078a2ba2-2e6e-4bcc-87ec-d3a22a9ff779"
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub-jenkins')
         CONTAINER_NAME = "farmdora-FE"
     }
 
@@ -27,7 +27,7 @@ pipeline {
         stage('Docker Push') {
             steps {
                 withCredentials([string(credentialsId: '${DOCKER_HUB_TOKEN}', usernameVariable: 'username', passwordVariable: 'password')]) {
-                    sh 'echo ${password} | docker login -u ${DOCKERHUB_USERNAME} --password-stdin'
+                    sh 'docker login -u ${DOCKERHUB_USERNAME} --password-stdin'
                     sh 'docker push ${DOCKER_IMAGE}:${DOCKER_TAG}'
                 }
             }
