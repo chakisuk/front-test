@@ -1,5 +1,4 @@
 pipeline {
-    agent any
 
     environment {
         DOCKERHUB_USERNAME = "chakisuk"
@@ -9,6 +8,8 @@ pipeline {
         DOCKERHUB_CREDENTIALS = credentials('dockerhub-jenkins')
         CONTAINER_NAME = "farmdora-FE"
     }
+    
+    agent any
 
     stages {
         stage('Build') {
