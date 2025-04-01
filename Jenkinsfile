@@ -7,11 +7,19 @@ pipeline {
         DOCKER_IMAGE = "${DOCKERHUB_USERNAME}/${IMAGE_NAME}"
         DOCKER_TAG = "latest"
         DOCKERHUB_CREDENTIALS = credentials('dockerhub-jenkins')
-        CONTAINER_NAME = "farmdora-FE"
+        CONTAINER_NAME = "test-front"
     }
 
 
     stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main', 
+                   url: 'https://github.com/chakisuk/front-test.git',
+                   credentialsId: 'farmdora-login'  // 필요한 경우
+            }
+        }
+
         stage('Build') {
             steps {
                 sh 'npm install'
