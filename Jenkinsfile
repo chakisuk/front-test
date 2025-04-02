@@ -48,9 +48,17 @@ pipeline {
             }
         }
 
-        stage('Cleanup') {
-            steps {
-                sh 'docker image prune -f --filter="reference=${DOCKERHUB_USERNAME}/${IMAGE_NAME}"' // chakisuk/test-front + <none> 태그 삭제
+        stage('Clean Up') { 
+            steps { 
+                sh 'docker images | grep "chakisuk/test-back" | grep "<none>" | awk \'{print $3}\' | xargs -r docker rmi -f || true'
+            }
+            post {
+                failure {
+                    echo 'Clean Docker Image failure !'
+                }
+                success {
+                    echo 'Clean Docker Image success !'
+                }
             }
         }
     }
