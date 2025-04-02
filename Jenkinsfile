@@ -47,6 +47,12 @@ pipeline {
                 sh 'docker run -d -p 80:80 -p 443:443 --name ${CONTAINER_NAME} ${DOCKER_IMAGE}:${DOCKER_TAG}'
             }
         }
+
+        stage('Cleanup') {
+            steps {
+                sh 'docker image prune -f --filter="reference=${DOCKERHUB_USERNAME}/${IMAGE_NAME}"' // chakisuk/test-front + <none> 태그 삭제
+            }
+        }
     }
 
     post {
